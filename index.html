@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de cadrstro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Formulário de cadrasto</h1>
+        <form id="triageForm">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="age">Idade:</label>
+            <input type="number" id="age" name="age" required>
+
+            <label for="symptoms">Sintomas:</label>
+            <textarea id="symptoms" name="symptoms" rows="4" required></textarea>
+
+            <label for="history">Histórico Médico:</label>
+            <textarea id="history" name="history" rows="4" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Função simples para simular a análise de sintomas
+        function analyzeSymptoms(symptoms) {
+            symptoms = symptoms.toLowerCase();
+            if (symptoms.includes('dor aguda') || symptoms.includes('dificuldade de respirar')) {
+                return 'Alta';
+            } else if (symptoms.includes('febre') || symptoms.includes('tosse')) {
+                return 'Moderada';
+            } else {
+                return 'Baixa';
+            }
+        }
+
+        // Função para lidar com o envio do formulário
+        document.getElementById('triageForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Coleta os dados do formulário
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const symptoms = document.getElementById('symptoms').value;
+            const history = document.getElementById('history').value;
+
+            // Simula a análise dos sintomas e determina o nível de urgência
+            const urgencyLevel = analyzeSymptoms(symptoms);
+
+            // Exibe o nível de urgência
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `Paciente: ${name} <br> Idade: ${age} <br> Nível de Urgência: ${urgencyLevel}`;
+        });
+    </script>
+
+</body>
+</html>
